@@ -1,23 +1,32 @@
-import logo from "./logo.svg";
+import React from "react";
+import Navbar from "./components/Navbar";
+import SignUp from "./components/pages/SignUp";
+import Home from "./components/pages/Home";
+import VideoPlayer from "./components/VideoPlayer";
+import Services from "./components/pages/Services";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+// import ProtectedRoute from "./path-to-your-protected-route-component";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p></p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Auth0Provider
+      domain="dev-hgmqfdn6h1uohhld.us.auth0.com"
+      clientId="05lcHT58mr2TlgXcPZ3vvdeAUK9vfQ4D"
+      redirectUri={window.location.origin}
+    >
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/watch-trailer" element={<VideoPlayer />} />
+        </Routes>
+      </Router>
+    </Auth0Provider>
   );
-}
+};
 
 export default App;
